@@ -1,6 +1,6 @@
-# M144 Codebeispiel Kompression mit Entropie
+# M114 Codebeispiel Kompression mit Entropie
 
-BBZW Sursee Modul 144, Codebeispiel Kompression mit Entropie: Shannon-Fano und Huffman
+BBZW Sursee Modul 114, Codebeispiel Kompression mit Entropie: Shannon-Fano und Huffman
 geschrieben von Johannes Zeller
 
 Jar: https://drive.google.com/uc?id=1doJwDC0npcD4Ri_Pbkgb4-ExmbSojpj2&export=download
