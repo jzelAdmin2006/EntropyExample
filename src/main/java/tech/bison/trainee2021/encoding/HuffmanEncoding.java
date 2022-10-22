@@ -147,7 +147,6 @@ public class HuffmanEncoding {
   }
 
   private String decode() {
-
     HashMap<BinaryEncoding, Character> reversedEncodingTable = new HashMap<>();
     for (char i : encodingTable.keySet()) {
       reversedEncodingTable.put(encodingTable.get(i), i);
