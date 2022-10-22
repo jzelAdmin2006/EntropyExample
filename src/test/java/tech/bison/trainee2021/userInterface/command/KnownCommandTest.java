@@ -4,8 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-import tech.bison.trainee2021.userInterface.command.KnownCommand;
-
 public class KnownCommandTest {
   @Test
   void encode_translate_staysTheSame() {
