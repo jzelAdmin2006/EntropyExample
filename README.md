@@ -13,14 +13,14 @@ Befehle:
   "/exit"
   
 Beispiele:
-  Input:
-    /encode Hello World
-  Output:
-    0000001000111010000000100000101001100001_{ =00000001, r=001, d=00001, e=0001, W=000001, H=0000001, l=1, o=01}
+Input:
+/encode Hello World
+Output:
+0000001000111010000000100000101001100001_{ =00000001, r=001, d=00001, e=0001, W=000001, H=0000001, l=1, o=01}
   
-  Input:
-    /decode 0000001000111010000000100000101001100001_{ =00000001, r=001, d=00001, e=0001, W=000001, H=0000001, l=1, o=01}
-  Output:
-    Hello World
+Input:
+/decode 0000001000111010000000100000101001100001_{ =00000001, r=001, d=00001, e=0001, W=000001, H=0000001, l=1, o=01}
+Output:
+Hello World
     
 Bemerkung: Die Applikation reagiert momentan beim Decodieren nicht auf Formatierungsfehler, zeigt dann auch nicht unbedingt ein Fehler an. Solange aber nur genau die Outputs von hier genommen werden, die immer korrekt sein sollten, sollte alles funktionieren.
