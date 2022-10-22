@@ -1,6 +1,4 @@
-package tech.bison.trainee2021.userInterface;
-
-import tech.bison.trainee2021.userInterface.command.EncodeCommand;
+package tech.bison.trainee2021.userInterface.command;
 
 public class CommandFactory {
 

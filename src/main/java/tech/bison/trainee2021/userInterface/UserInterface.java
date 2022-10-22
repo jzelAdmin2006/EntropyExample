@@ -2,6 +2,9 @@ package tech.bison.trainee2021.userInterface;
 
 import java.util.Scanner;
 
+import tech.bison.trainee2021.userInterface.command.Command;
+import tech.bison.trainee2021.userInterface.command.CommandFactory;
+
 public class UserInterface {
   private static final String EXIT = "/exit";
   private boolean isRunning;

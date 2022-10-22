@@ -1,10 +1,8 @@
-package tech.bison.trainee2021.userInterface;
+package tech.bison.trainee2021.userInterface.command;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
-
-import tech.bison.trainee2021.userInterface.command.EncodeCommand;
 
 public class CommandFactoryTest {
   @Test

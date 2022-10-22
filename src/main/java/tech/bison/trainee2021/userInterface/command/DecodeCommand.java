@@ -1,4 +1,4 @@
-package tech.bison.trainee2021.userInterface;
+package tech.bison.trainee2021.userInterface.command;
 
 import tech.bison.trainee2021.encoding.HuffmanEncoding;
 

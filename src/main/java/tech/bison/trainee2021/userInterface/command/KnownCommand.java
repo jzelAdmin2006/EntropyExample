@@ -1,4 +1,4 @@
-package tech.bison.trainee2021.userInterface;
+package tech.bison.trainee2021.userInterface.command;
 
 public abstract class KnownCommand {
   public static final String NOT_FOUND = "";

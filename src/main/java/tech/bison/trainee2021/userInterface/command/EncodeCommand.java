@@ -1,7 +1,6 @@
 package tech.bison.trainee2021.userInterface.command;
 
 import tech.bison.trainee2021.encoding.HuffmanEncoding;
-import tech.bison.trainee2021.userInterface.Command;
 
 public class EncodeCommand implements Command {
 
