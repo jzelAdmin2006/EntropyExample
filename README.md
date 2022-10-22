@@ -15,7 +15,7 @@ Befehle:
 Beispiele:
   Input:
     /encode Hello World
-  Output
+  Output:
     0000001000111010000000100000101001100001_{ =00000001, r=001, d=00001, e=0001, W=000001, H=0000001, l=1, o=01}
   
   Input:
