@@ -27,6 +27,25 @@ public class HuffmanEncoding {
     this.input = decode();
   }
 
+  /*
+   * This method doesn't react to incorrectly formatted HuffmanEncodings. Use it at your own risk!
+   */
+  @Deprecated
+  public static HuffmanEncoding parseHuffmanEncoding(String formattedHuffmanEncoding) {
+    String huffmanEncodingBinaryString = formattedHuffmanEncoding.split(STRINGPARSE_DELIMITER)[0];
+    String[] huffmanEncodingTableRows = formattedHuffmanEncoding
+        .substring(huffmanEncodingBinaryString.length() + 2, formattedHuffmanEncoding.length() - 1)
+        .split(", ");
+    BinaryEncoding completeHuffmanEncoding = new BinaryEncoding(huffmanEncodingBinaryString);
+    HashMap<Character, BinaryEncoding> encodingTable = new HashMap<>();
+    for (String huffmanEncodingTableRow : huffmanEncodingTableRows) {
+      char character = huffmanEncodingTableRow.charAt(0);
+      BinaryEncoding encoding = new BinaryEncoding(huffmanEncodingTableRow.substring(2));
+      encodingTable.put(character, encoding);
+    }
+    return new HuffmanEncoding(completeHuffmanEncoding, encodingTable);
+  }
+
   public String getInput() {
     return input;
   }
@@ -153,24 +172,5 @@ public class HuffmanEncoding {
       bits = bits.substring(i);
     }
     return encodedCharacters;
-  }
-
-  /*
-   * This method doesn't react to incorrectly formatted HuffmanEncodings. Use it at your own risk!
-   */
-  @Deprecated
-  public static HuffmanEncoding parseHuffmanEncoding(String formattedHuffmanEncoding) {
-    String huffmanEncodingBinaryString = formattedHuffmanEncoding.split(STRINGPARSE_DELIMITER)[0];
-    String[] huffmanEncodingTableRows = formattedHuffmanEncoding
-        .substring(huffmanEncodingBinaryString.length() + 2, formattedHuffmanEncoding.length() - 1)
-        .split(", ");
-    BinaryEncoding completeHuffmanEncoding = new BinaryEncoding(huffmanEncodingBinaryString);
-    HashMap<Character, BinaryEncoding> encodingTable = new HashMap<>();
-    for (String huffmanEncodingTableRow : huffmanEncodingTableRows) {
-      char character = huffmanEncodingTableRow.charAt(0);
-      BinaryEncoding encoding = new BinaryEncoding(huffmanEncodingTableRow.substring(2));
-      encodingTable.put(character, encoding);
-    }
-    return new HuffmanEncoding(completeHuffmanEncoding, encodingTable);
   }
 }
