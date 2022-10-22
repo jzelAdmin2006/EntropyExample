@@ -3,9 +3,11 @@
 BBZW Sursee Modul 114, Codebeispiel Kompression mit Entropie: Shannon-Fano und Huffman
 geschrieben von Johannes Zeller
 
+Empfohlene Java-Version: 17.0.5
+
 Jar: https://drive.google.com/uc?id=1doJwDC0npcD4Ri_Pbkgb4-ExmbSojpj2&export=download
 
-Exe: https://drive.google.com/uc?id=1mSM8R-8AWAQB_bvVElu8YGo41h-xMG4E&export=download
+Exe: https://drive.google.com/uc?id=1mSM8R-8AWAQB_bvVElu8YGo41h-xMG4E&export=download&confirm=t&uuid=4bdbdbf4-7ca0-43fc-b283-dd16bc6ab0f0&at=ALAFpqwypR2VZ50drNH2qxJc-g4s:1666453197895
 
 Befehle:
   "/encode {stringToEncode}"
