@@ -1,9 +1,8 @@
 # M114 Codebeispiel Kompression mit Entropie
 
-BBZW Sursee Modul 114, Codebeispiel Kompression und Dekopression mit Entropie: Huffman-Algorithmus
-geschrieben von Johannes Zeller
-
-Empfohlene Java-Version: 17.0.5
+- BBZW Sursee Modul 114, Codebeispiel Kompression und Dekopression mit Entropie: Huffman-Algorithmus
+- geschrieben von Johannes Zeller
+- Empfohlene Java-Version: 17.0.5
 
 Download Jar: https://drive.google.com/uc?id=1doJwDC0npcD4Ri_Pbkgb4-ExmbSojpj2&export=download
 
