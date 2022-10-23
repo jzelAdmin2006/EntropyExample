@@ -1,6 +1,6 @@
 # M114 Codebeispiel Kompression mit Entropie
 
-BBZW Sursee Modul 114, Codebeispiel Kompression mit Entropie: Shannon-Fano und Huffman
+BBZW Sursee Modul 114, Codebeispiel Kompression und Dekopression mit Entropie: Huffman-Algorithmus
 geschrieben von Johannes Zeller
 
 Empfohlene Java-Version: 17.0.5
