@@ -171,7 +171,7 @@ public class HuffmanEncodingTest {
 
     String result = huffmanEncoding.toString();
 
-    assertThat(result).isEqualTo("000100101_{a=000, s=1, d=001, f=01}");
+    assertThat(result).isEqualTo("00011011_{a=00, s=01, d=10, f=11}");
   }
 
   @Test
@@ -180,8 +180,8 @@ public class HuffmanEncodingTest {
 
     String result = huffmanEncoding.toString();
 
-    assertThat(result).isEqualTo(
-        "00000000001000000010000010000110000001000101_{q=00001, a=00000000, r=0001, s=001, t=01, d=00000001, e=0000001, f=000001, w=1}");
+    assertThat(result)
+        .isEqualTo("11101111000001010011100101110_{a=1110, q=010, r=101, s=1111, d=000, t=110, e=100, f=001, w=011}");
   }
 
   @Test

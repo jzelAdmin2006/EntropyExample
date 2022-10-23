@@ -3,8 +3,6 @@ package tech.bison.trainee2021.encoding;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +12,7 @@ public class HuffmanEncoding {
   private final String input;
   private final BinaryEncoding encoding;
   private final HashMap<Character, BinaryEncoding> encodingTable;
+  private HuffmanBranch huffmanTree;
 
   public HuffmanEncoding(String input) {
     encodingTable = new HashMap<>();
@@ -64,72 +63,129 @@ public class HuffmanEncoding {
   }
 
   private BinaryEncoding encode(String input) {
-    char[] inputChars = input.toCharArray();
-    inputChars = sortByFrequency(inputChars);
-    for (int inputCharIndex = 0; inputCharIndex < inputChars.length; inputCharIndex++) {
+    if (input.length() == 1) {
+      BinaryEncoding binaryEncoding = new BinaryEncoding(String.valueOf(BinaryEncoding.POSITIVE_BIT));
+      encodingTable.put(input.charAt(0), binaryEncoding);
+      return binaryEncoding;
+    } else {
+      char[] inputChars = input.toCharArray();
+      HashMap<Character, Integer> charFrequencies = getCharFrequencies(inputChars);
+      List<HuffmanBranch> topBranches = new ArrayList<>();
+      char[] occuringCharsInInput = removeDuplicates(inputChars);
+      for (char inputChar : occuringCharsInInput) {
+        topBranches.add(new HuffmanBranch(inputChar, charFrequencies.get(inputChar)));
+      }
+      huffmanTree = generateHuffmanTree(topBranches);
+      HashMap<Character, String> charCodes = extractHuffmanTreeCharCodes();
       String binaryString = "";
-      for (int zeroBitIndex = 0; zeroBitIndex < inputCharIndex; zeroBitIndex++) {
-        binaryString += BinaryEncoding.NEGATIVE_BIT;
+      for (char inputChar : inputChars) {
+        binaryString += charCodes.get(inputChar);
+        encodingTable.put(inputChar, new BinaryEncoding(charCodes.get(inputChar)));
       }
-      if (inputCharIndex < inputChars.length && (inputCharIndex < inputChars.length - 1 || inputChars.length == 1)) {
-        binaryString += BinaryEncoding.POSITIVE_BIT;
-      }
-      encodingTable.put(inputChars[inputCharIndex], new BinaryEncoding(binaryString));
+      return new BinaryEncoding(binaryString);
     }
-    String binaryString = "";
-    for (int i = 0; i < input.length(); i++) {
-      binaryString += encodingTable.get(input.charAt(i)).getBinaryString();
-    }
-    return new BinaryEncoding(binaryString);
   }
 
-  private char[] sortByFrequency(char[] chars) {
-    char[] charsWithoutDuplicates = removeDuplicates(chars);
+  private HashMap<Character, String> extractHuffmanTreeCharCodes() {
+    HashMap<Character, String> charCodes = new HashMap<>();
+    while (!huffmanTree.isVisited()) {
+      boolean charWasFound = false;
+      HuffmanBranch workingBranch = huffmanTree;
+      String currentCharCode = "";
+      while (!charWasFound) {
+        if (workingBranch.getCharacter() != null) {
+          charWasFound = true;
+          charCodes.put(workingBranch.getCharacter(), currentCharCode);
+          setVisitedFlagForChar(currentCharCode);
+        } else if (!workingBranch.getFirstConnectedHuffmanBranch().isVisited()) {
+          currentCharCode += BinaryEncoding.NEGATIVE_BIT;
+          workingBranch = workingBranch.getFirstConnectedHuffmanBranch();
+        } else if (!workingBranch.getSecondConnectedHuffmanBranch().isVisited()) {
+          currentCharCode += BinaryEncoding.POSITIVE_BIT;
+          workingBranch = workingBranch.getSecondConnectedHuffmanBranch();
+        } else if (!workingBranch.isVisited()) {
+          workingBranch.setVisited();
+          workingBranch = huffmanTree;
+          for (int i = 0; i < currentCharCode.length() - 1; i++) {
+            if (currentCharCode.charAt(i) == BinaryEncoding.NEGATIVE_BIT) {
+              workingBranch = workingBranch.getFirstConnectedHuffmanBranch();
+            } else {
+              workingBranch = workingBranch.getSecondConnectedHuffmanBranch();
+            }
+          }
+        } else {
+          charWasFound = true;
+        }
+      }
+    }
+    return charCodes;
+  }
+
+  private void setVisitedFlagForChar(String branchCode) {
+    HuffmanBranch workingBranch = huffmanTree;
+    for (int i = 0; i < branchCode.length(); i++) {
+      if (branchCode.charAt(i) == BinaryEncoding.NEGATIVE_BIT) {
+        if (workingBranch.getFirstConnectedHuffmanBranch() != null) {
+          workingBranch = workingBranch.getFirstConnectedHuffmanBranch();
+        }
+      } else {
+        if (workingBranch.getSecondConnectedHuffmanBranch() != null) {
+          workingBranch = workingBranch.getSecondConnectedHuffmanBranch();
+        }
+      }
+    }
+    workingBranch.setVisited();
+    for (int i = 0; i < branchCode.length(); i++) {
+      if (workingBranch.getParentBranch() != null) {
+        workingBranch = workingBranch.getParentBranch();
+      }
+    }
+    huffmanTree = workingBranch;
+  }
+
+  private HuffmanBranch generateHuffmanTree(List<HuffmanBranch> treeBuild) {
+    while (treeBuild.size() > 1) {
+      treeBuild = sortByFrequency(treeBuild);
+      HuffmanBranch frontBranch = treeBuild.get(0);
+      HuffmanBranch secondFrontBranch = treeBuild.get(1);
+      HuffmanBranch connectedHuffmanBranch = new HuffmanBranch(frontBranch, secondFrontBranch);
+      treeBuild.remove(1);
+      treeBuild.remove(0);
+      treeBuild.add(connectedHuffmanBranch);
+    }
+    return treeBuild.get(0);
+  }
+
+  private List<HuffmanBranch> sortByFrequency(List<HuffmanBranch> treeBuild) {
+    boolean isSorted = false;
+    while (!isSorted) {
+      isSorted = true;
+      for (int i = 0; i < treeBuild.size() - 1; i++) {
+        HuffmanBranch currentBranch = treeBuild.get(i);
+        HuffmanBranch nextBranch = treeBuild.get(i + 1);
+        if (currentBranch.getFrequency() > nextBranch.getFrequency()) {
+          treeBuild.set(i, nextBranch);
+          treeBuild.set(i + 1, currentBranch);
+          isSorted = false;
+        }
+      }
+    }
+    return treeBuild;
+  }
+
+  private HashMap<Character, Integer> getCharFrequencies(char[] inputChars) {
+    char[] charsWithoutDuplicates = removeDuplicates(inputChars);
     HashMap<Character, Integer> frequencies = new HashMap<>();
     for (char character : charsWithoutDuplicates) {
       int counter = 0;
-      for (char occuringChar : chars) {
+      for (char occuringChar : inputChars) {
         if (character == occuringChar) {
           counter++;
         }
       }
       frequencies.put(character, counter);
     }
-    LinkedHashMap<Character, Integer> sortedFrequencies = sortHashMapByValues(frequencies);
-
-    char[] sortedChars = new char[sortedFrequencies.size()];
-    int i = 0;
-    for (@SuppressWarnings("rawtypes")
-    Map.Entry mapElement : sortedFrequencies.entrySet()) {
-      char key = (char) mapElement.getKey();
-      sortedChars[sortedFrequencies.size() - i - 1] = key;
-      i++;
-    }
-    return sortedChars;
-  }
-
-  private LinkedHashMap<Character, Integer> sortHashMapByValues(HashMap<Character, Integer> mapToSort) {
-    List<Character> mapKeys = new ArrayList<>(mapToSort.keySet());
-    List<Integer> mapValues = new ArrayList<>(mapToSort.values());
-    Collections.sort(mapValues);
-    Collections.sort(mapKeys);
-    LinkedHashMap<Character, Integer> sortedMap = new LinkedHashMap<>();
-    Iterator<Integer> valueIt = mapValues.iterator();
-    while (valueIt.hasNext()) {
-      Integer val = valueIt.next();
-      Iterator<Character> keyIt = mapKeys.iterator();
-      while (keyIt.hasNext()) {
-        Character key = keyIt.next();
-        Integer comp1 = mapToSort.get(key);
-        Integer comp2 = val;
-        if (comp1.equals(comp2)) {
-          keyIt.remove();
-          sortedMap.put(key, val);
-          break;
-        }
-      }
-    }
-    return sortedMap;
+    return frequencies;
   }
 
   private char[] removeDuplicates(char[] originalCharacters) {

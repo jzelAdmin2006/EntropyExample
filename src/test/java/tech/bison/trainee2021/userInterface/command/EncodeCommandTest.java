@@ -29,6 +29,6 @@ public class EncodeCommandTest {
 
     String result = encodeCommand.execute("aaaaaadsvb");
 
-    assertThat(result).isEqualTo("1111110001001010000_{a=1, b=0000, s=001, d=0001, v=01}");
+    assertThat(result).isEqualTo("111111000001010011_{a=1, b=011, s=001, d=000, v=010}");
   }
 }
