@@ -71,7 +71,7 @@ public class HuffmanEncoding {
       for (int zeroBitIndex = 0; zeroBitIndex < inputCharIndex; zeroBitIndex++) {
         binaryString += BinaryEncoding.NEGATIVE_BIT;
       }
-      if (inputCharIndex < inputChars.length) {
+      if (inputCharIndex < inputChars.length && (inputCharIndex < inputChars.length - 1 || inputChars.length == 1)) {
         binaryString += BinaryEncoding.POSITIVE_BIT;
       }
       encodingTable.put(inputChars[inputCharIndex], new BinaryEncoding(binaryString));

@@ -59,12 +59,12 @@ public class HuffmanEncodingTest {
   }
 
   @Test
-  void newHuffmanEncodingWithInputAB_getEncoding_isZeroOneOne() {
+  void newHuffmanEncodingWithInputAB_getEncoding_isZeroOne() {
     HuffmanEncoding huffmanEncoding = new HuffmanEncoding("AB");
 
     BinaryEncoding result = huffmanEncoding.getEncoding();
 
-    assertThat(result).isEqualTo(new BinaryEncoding("011"));
+    assertThat(result).isEqualTo(new BinaryEncoding("01"));
   }
 
   @Test
@@ -171,7 +171,7 @@ public class HuffmanEncodingTest {
 
     String result = huffmanEncoding.toString();
 
-    assertThat(result).isEqualTo("0001100101_{a=0001, s=1, d=001, f=01}");
+    assertThat(result).isEqualTo("000100101_{a=000, s=1, d=001, f=01}");
   }
 
   @Test
@@ -181,7 +181,7 @@ public class HuffmanEncodingTest {
     String result = huffmanEncoding.toString();
 
     assertThat(result).isEqualTo(
-        "000000001001000000010000010000110000001000101_{q=00001, a=000000001, r=0001, s=001, t=01, d=00000001, e=0000001, f=000001, w=1}");
+        "00000000001000000010000010000110000001000101_{q=00001, a=00000000, r=0001, s=001, t=01, d=00000001, e=0000001, f=000001, w=1}");
   }
 
   @Test

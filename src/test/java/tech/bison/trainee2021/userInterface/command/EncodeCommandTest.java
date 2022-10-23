@@ -20,7 +20,7 @@ public class EncodeCommandTest {
 
     String result = encodeCommand.execute("AB");
 
-    assertThat(result).isEqualTo("011_{A=01, B=1}");
+    assertThat(result).isEqualTo("01_{A=0, B=1}");
   }
 
   @Test
@@ -29,6 +29,6 @@ public class EncodeCommandTest {
 
     String result = encodeCommand.execute("aaaaaadsvb");
 
-    assertThat(result).isEqualTo("11111100010010100001_{a=1, b=00001, s=001, d=0001, v=01}");
+    assertThat(result).isEqualTo("1111110001001010000_{a=1, b=0000, s=001, d=0001, v=01}");
   }
 }
